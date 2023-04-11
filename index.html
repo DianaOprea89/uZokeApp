@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>ZokeApp</title>
+    <link href="styles.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+</head>
+<body class="container">
+<div class="header bg-secondary ">
+    <header>
+        <h1 class="text-light">ZokeApp</h1>
+    </header>
+</div>
+<div>
+    <main class="p-5 bg-light-emphasis ">
+        <div id="app">
+            <div class="container text-center p-5">
+                <div>
+                    <h2>Today</h2>
+                    <p></p>
+                </div>
+                <div class="row p-1 bg-secondary-subtle">
+                    <h4 class="col fw-bold">Summary</h4>
+                    <h4 class="col fw-bold">Details</h4>
+                </div>
+                <div>
+                    <div class="row p-5">
+                        <div class="col  p-2 text-secondary-emphasis">
+                            Eaten : {{sumProducts()}} calories
+                            <div class="amount" v-for="(item,index) in selectedFoods" :key="index">
+
+                            </div>
+                        </div>
+                        <div class="col  p-2 text-secondary-emphasis"> Remaining <span class="amount"></span>0</div>
+                        <div class="col  p-2 text-secondary-emphasis"> Burned <span class="amount"></span>0</div>
+                    </div>
+                    <div class="row p-5">
+                        <div class="col  p-2 text-secondary-emphasis"> Carbs : {{sumCarbs()}} g
+                            <div class="amount" v-for="(item,index) in selectedFoods" :key="index">
+
+                            </div>
+                        </div>
+                        <div class="col  p-2 text-secondary-emphasis"> Protein : {{sumProtein()}} g
+                            <div class="amount" v-for="(item,index) in selectedFoods" :key="index">
+
+                            </div>
+                        </div>
+                        <div class="col  p-2 text-secondary-emphasis"> Fat : {{sumFat()}} g
+                            <div class="amount" v-for="(item,index) in selectedFoods" :key="index">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1 bg-secondary-subtle">
+                    <h4 class="col fw-bold p-2">Nutrition</h4>
+                    <h4 class="col fw-bold p-2">More</h4>
+                </div>
+            </div>
+
+
+            <div class="container ">
+                <div class="row p-2 text-center">
+                    <div class="col">
+                        <p class="d-inline" ref="paragraph1">Breakfast</p>
+                        <button @click="addSelectedAliment('Breakfast')" type="button" class="btn btn-light d-inline"
+                                >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                            </svg>
+
+                        </button>
+                    </div>
+                    <div class="col">
+                        <p class="d-inline" ref="paragraph2">Lunch</p>
+                        <button @click="addSelectedAliment('Lunch')" type="button" class="btn btn-light d-inline"
+                                >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                            </svg>
+
+                        </button>
+                    </div>
+                    <div class="col">
+                        <p class="d-inline" ref="paragraph3">Dinner</p>
+                        <button @click="addSelectedAliment('Dinner')" type="button" class="btn btn-light d-inline"
+                                >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                            </svg>
+
+                        </button>
+                    </div>
+                    <div class="col">
+                        <p class="d-inline" ref="paragraph4">Snacks</p>
+                        <button @click="addSelectedAliment('Snacks')" type="button" class="btn btn-light d-inline"
+                                >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                            </svg>
+
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row p-5">
+                    <label for="aliments" class="m-auto  col-2">Choose an aliment:</label>
+                    <div class="col-6">
+                        <select name="aliments" id="aliments" v-model="selectedItem" class="form-select">
+                            <option v-for="(item,index) in aliments" :value="index" class="dropdown-item">
+                                {{item.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label>
+                            <input type="text" v-model="selectedGrams">
+                        </label>
+                    </div>
+
+                </div>
+                <div class="col p-5">
+                    <h4>My food: </h4>
+
+                    <p>Breakfast : </p>
+                        <ul v-for="items in selectedFoods">
+                            <li v-if="items.type==='Breakfast'">{{items.name}}: {{items.grams}} g</li>
+                        </ul>
+
+                    <p>Lunch : </p>
+                        <ul v-for="items in selectedFoods">
+                            <li v-if="items.type==='Lunch'">{{items.name}}: {{items.grams}} g</li>
+                        </ul>
+
+                    <p>Dinner : </p>
+                        <ul v-for="items in selectedFoods">
+                            <li v-if="items.type==='Dinner'">{{items.name}}: {{items.grams}} g</li>
+                        </ul>
+
+                    <p>Snacks : </p>
+                        <ul v-for="items in selectedFoods">
+                            <li v-if="items.type==='Snacks'">{{items.name}}: {{items.grams}} g</li>
+                        </ul>
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </main>
+</div>
+
+<footer>
+</footer>
+
+<script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
